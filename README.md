@@ -1,6 +1,6 @@
 ## About this repository
 
-This is a modified version of the original [MegaSaM repository](https://github.com/mega-sam/mega-sam). The goal is to let you run MegaSaM on your own videos (from the wild) as easily as possible. In addition, I have made use of [SpatialVid](https://github.com/NJU-3DV/SpatialVID)'s visualisation code to make it easier to visualize the results which is based on another great project [viser](https://viser.studio/main/) - so big thanks to the authors of those two projects. 
+This is a modified version of the original [MegaSaM repository](https://github.com/mega-sam/mega-sam). The goal is to let you run MegaSaM on your own videos (from the wild) as easily as possible. In addition, I have made use of [SpatialVid](https://github.com/NJU-3DV/SpatialVID)'s visualisation code to make it easier to visualize the results which is based on another great project [viser](https://viser.studio/main/) - so big thanks to the authors of those two projects.
 
 ![MegaSaM Result](assets/demo2.gif)
 
@@ -17,7 +17,7 @@ Dynamic Videos** \
 Zhengqi Li, Richard Tucker, Forrester Cole, Qianqian Wang, Linyi Jin, Vickie Ye,
 Angjoo Kanazawa, Aleksander Holynski, Noah Snavely
 
-*This is not an officially supported Google product.*
+_This is not an officially supported Google product._
 
 ## Clone
 
@@ -52,20 +52,22 @@ Anaconda.
     ```bash
     cd base; python setup.py install;cd ..
     ```
+
     Note that you need to have properly set `CUDA_HOME` environment variable
-    pointing to your CUDA installation. When you are on cluster, it is often possible to load it as module, e.g. `module load cuda/11.8`. Alternatively, in the above conda env installation step, you have installed CUDA toolkit in the conda env, so you can set 
+    pointing to your CUDA installation. When you are on cluster, it is often possible to load it as module, e.g. `module load cuda/11.8`. Alternatively, in the above conda env installation step, you have installed CUDA toolkit in the conda env, so you can set
 
     ```bash
     export CUDA_HOME=$(dirname $(dirname $(which nvcc)))
-    ``` 
+    ```
+
     before running the above compilation command. I have only verified the cluster method.
 
-4. Install the viser package for visualizing the results (assuming you are in the root of the cloned repo):
+4.  Install the viser package for visualizing the results (assuming you are in the root of the cloned repo):
 
     ```bash
     pip install plotly
     pip install -e viser
-    ``` 
+    ```
 
 ### Downloading pretrained checkpoints
 
@@ -82,7 +84,8 @@ Anaconda.
     python -m pip install -U gdown typing_extensions bs4
     python -m gdown --folder https://drive.google.com/drive/folders/1sWDsfuZ3Up38EUQt7-JDTT1HcGHuJgvT \
     -O /scratch/izar/cizinsky/pretrained
-    ``` 
+    ```
+
     Note that I first install `gdown` package to be able to download from gdrive. You can also download the file manually if you prefer but that's too much work.
 
 ## Running MegaSaM your own video (in form of folder with frames)
@@ -90,10 +93,10 @@ Anaconda.
 Now, with the installation out of the way, you can run MegaSaM on your own video. Please, first go over the first section of the [run_megasam.sh](run_megasam.sh) script and edit the paths to your liking. I mark clearly what needs to be set and what you can leave as is. Then run:
 
 ```bash
-bash run_megasam.sh 
+bash run_megasam.sh
 ```
 
-This will run the full pipeline and save the results to the `OUT_DIR` you specified in the script. 
+This will run the full pipeline and save the results to the `OUT_DIR` you specified in the script.
 Apart from the intermediate results saved in folders (depth_anything, unidepth, raft_flow, reconstructions), there will be the final output saved as `sgd_cvd_hr.npz` saved at the root of the `OUT_DIR`. You can then visualise the result by running (and pointing to the correct data file):
 
 ```bash
@@ -106,7 +109,6 @@ If you are on VSCode, you can add port forwarding to your ssh session and then o
 ## Contact
 
 For any questions related to our paper, please send email to zl548@cornell.edu.
-
 
 ## Bibtex
 
@@ -121,7 +123,7 @@ For any questions related to our paper, please send email to zl548@cornell.edu.
 
 ## Copyright
 
-Copyright 2025 Google LLC  
+Copyright 2025 Google LLC
 
 All software is licensed under the Apache License, Version 2.0 (Apache 2.0); you may not use this file except in compliance with the Apache 2.0 license. You may obtain a copy of the Apache 2.0 license at: https://www.apache.org/licenses/LICENSE-2.0
 
@@ -131,3 +133,6 @@ Unless required by applicable law or agreed to in writing, all software and mate
 
 This is not an official Google product.
 
+pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
+pip install xformers --index-url https://download.pytorch.org/whl/cu118
+pip install torch-scatter -f https://data.pyg.org/whl/torch-2.7.1+cu118.html

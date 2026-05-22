@@ -1,3 +1,4 @@
 [submodule "base"]
 	path = base
 	url = https://github.com/satwire/DROID-SLAM.git
+	branch = develop
