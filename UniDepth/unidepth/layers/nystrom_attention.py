@@ -4,7 +4,28 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from einops import rearrange
-from xformers.components.attention import NystromAttention
+try:
+    from xformers.components.attention import NystromAttention
+except ImportError:
+    class NystromAttention(nn.Module):
+        def __init__(self, num_landmarks=128, num_heads=4, dropout=0.0):
+            super().__init__()
+            self.num_heads = num_heads
+            self.dropout = dropout
+
+        def forward(self, q, k, v, key_padding_mask=None):
+            # q, k, v: (B, N, H, D)
+            # F.scaled_dot_product_attention expects (B, H, N, D)
+            q = q.transpose(1, 2)
+            k = k.transpose(1, 2)
+            v = v.transpose(1, 2)
+            
+            x = F.scaled_dot_product_attention(
+                q, k, v,
+                attn_mask=key_padding_mask,
+                dropout_p=self.dropout if self.training else 0.0
+            )
+            return x.transpose(1, 2)
 
 from .attention import AttentionBlock
 
